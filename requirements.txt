@@ -4,3 +4,4 @@ website
 flask_sqlalchemy
 flask_migrate
 psycopg2-binary
+flask_script
