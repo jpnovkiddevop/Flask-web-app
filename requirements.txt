@@ -3,3 +3,5 @@ flask_login
 website
 flask_sqlalchemy
 flask_migrate
+flask_script
+
