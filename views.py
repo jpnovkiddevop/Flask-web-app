@@ -1,5 +1,5 @@
-from flask import Blueprint,render_template,request,flash,jsonify
-from flask_login import login_required,current_user
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask_login import login_required, current_user
 from . import db
 from .models import Note
 import json
@@ -22,14 +22,44 @@ def home():
             flash("Note added!",category='success')
     return render_template('home.html',User=current_user)
 
-@views.route('/delete-note',methods=['POST'])
+from flask import jsonify, request
+
+@views.route('/delete-note', methods=['POST','DELETE','GET'])
 def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    
+    note_data = json.loads(request.data)
+    note_id = note_data['noteId']
+    note = Note.query.get(note_id)
+
     if note:
         if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-    return jsonify({})
+            try:
+                db.session.delete(note)
+                db.session.commit()
+                return jsonify({ "message": "Note deleted successfully" })
+            except Exception as e:
+                return jsonify({"error": "Failed to delete the note", "details": str(e)}), 500
+        else:
+            return jsonify({"error": "You do not have permission to delete this note"}), 403
+    else:
+        return jsonify({"error": "Note not found"}), 404
+
+@views.route('/delete/<int:note_id>', methods=['POST','DELETE','GET'])    
+@login_required
+def delete(note_id):
+    note = Note.query.get_or_404(note_id)
+
+    if note:
+        if note.user_id == current_user.id:
+            try:
+                db.session.delete(note)
+                db.session.commit()
+                return redirect('/')
+                #return jsonify({"message": "note deleted successfully"})
+            except Exception as e:
+                return jsonify({'error': 'Failed to delete the note', 'details': str(e)}), 500
+        else:
+            return jsonify({'error': 'You do not have permission to delete this note'}), 403
+    else:
+        return jsonify({'error': 'Note not found'}), 404
+    
+    

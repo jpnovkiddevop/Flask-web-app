@@ -1,0 +1,68 @@
+body {
+    background-color:burlywood;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+h2 {
+    color:blue;
+}
+
+.mybutton {
+    margin: 0 auto;
+    align-self: center;
+}
+
+.form-group {
+    border: 1px solid white;
+    background-color: antiquewhite;
+    display: block;
+    max-width: 12rem;
+    margin : 0 auto;
+    text-align: center;
+}
+
+.form-group:hover {
+    border: 1px solid aqua;
+}
+
+.form-group > input {
+    border: none;
+    max-width: 10rem;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    border-radius: .7em;
+    margin-left: 1.2em;
+}
+
+
+.mynotes {
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.mylink {
+    border: 1px solid white;
+    border-radius: 5%;
+    background-color: aliceblue;
+    color: red;
+}
+
+.mylink:hover {
+    background-color: red;
+    color: white;
+    border-radius: 5%;
+    border: 1px solid red;
+}
+
+a {
+    text-decoration: none;
+    margin: 4em;
+}
+
+.home {
+    color:aquamarine;
+    font-size:3em;
+}
+
+#notes {
+    display: flex;
+}

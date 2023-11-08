@@ -32,7 +32,7 @@ def logout():
 
 @auth.route('/sign-up',methods=['GET','POST'])
 def sign_up():
-    if request.method=='POST':
+    if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
@@ -51,10 +51,10 @@ def sign_up():
             flash('password must be greater than 6 characters.',category='error')
         else:
             #add user to the database
-            new_user = User(email=email,first_name=first_name,password=generate_password_hash(password1,method='sha256'))
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(User,remember=True)
+            login_user(new_user, remember=True)
             flash('account created successfully!',category='success')
             
             return redirect(url_for('views.home'))
