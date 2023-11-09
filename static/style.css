@@ -1,6 +1,8 @@
 body {
     background-color:burlywood;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 h2 {
     color:blue;
@@ -33,6 +35,11 @@ h2 {
     margin-left: 1.2em;
 }
 
+.mylinks {
+    display: flex;
+    text-decoration: none;
+    color:blue;
+}
 
 .mynotes {
     padding: 2rem;
@@ -65,4 +72,8 @@ a {
 
 #notes {
     display: flex;
+}
+
+.nav--height {
+    max-height: 2.5em;
 }
