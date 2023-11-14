@@ -11,57 +11,60 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
         
-        <title>{% block title %}Mj website{% endblock %}</title>
+        <title>{% block title %}talknote{% endblock %}</title>
     </head>
     <body>
-        {%include "nav.html" %}
-        
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse-navbar-collapse" id="navbar">
-                <div class="mylinks">
-                    {% if User.is_authenticated %}
-                    <a class="mylinks" id="home" href="/">HOME</a>
-                    <a class="mylinks" id="logout" href="/logout">logout</a>
-                    {% else %}
-                    <a class="mylinks" id="login" href="/login">login</a>
-                    <a class="mylinks" id="signUp" href="/sign-up">sign up</a>
-                    {% endif %}
-                    
+        <div class="container" mt-2>
+            {%include "nav.html" %}
+            
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse-navbar-collapse" id="navbar">
+                    <div class="mylinks ">
+                        {% if User.is_authenticated %}
+                        <a class="mylinks" id="home" href="/">HOME</a>
+                        <a class="mylinks" id="logout" href="/logout">logout</a>
+                        {% else %}
+                        <a class="mylinks" id="login" href="/login">login</a>
+                        <a class="mylinks" id="signUp" href="/sign-up">sign up</a>
+                        {% endif %}
+                        
+                    </div>
                 </div>
+            </nav>
+            {% with messages= get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            {% if category=='error' %}
+            <div class="alert alert-danger alert-dismissable fade show " role="alert" style="color:red">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </nav>
-        {% with messages= get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-          {% if category=='error' %}
-          <div class="alert alert-danger alert-dismissable fade show " role="alert" style="color:red">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% else %}
-          <div class="alert alert-success alert-dismissable fade show " role="alert" style="color:aqua">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% endif %}
-          {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>    
-        <script></script>
-        <script></script>
-        <script>
-            type="text/javascript"
-            src="{{ url_for('static',filename='index.js') }}"
-        </script>
+            {% else %}
+            </div>
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill" />
+                </svg>
+                <div>{{ message }}</div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>    
+            <script></script>
+            <script></script>
+            <script>
+                type="text/javascript"
+                src="{{ url_for('static',filename='index.js') }}"
+            </script>
+        </div>
     </body>
 </html>

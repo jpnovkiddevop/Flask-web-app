@@ -4,6 +4,8 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Note
 import json
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 views = Blueprint('views', __name__)
 

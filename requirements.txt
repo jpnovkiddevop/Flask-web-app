@@ -5,3 +5,4 @@ flask_sqlalchemy
 flask_migrate
 flask_script
 psycopg2-binary
+flask_wtf
